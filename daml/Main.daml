@@ -1,0 +1,60 @@
+module Main where
+
+type ProjectIdeaId = ContractId ProjectIdea
+type ProjectContractId = ContractId ProjectContract
+
+template ProjectIdea
+    with
+        employee : Party
+        colleague : Party
+        manager : Party
+        project : Text
+        note : Text
+    where 
+        signatory employee
+        observer employee, colleague, manager
+        -- "DAML contracts are private; you have to explicitly declare the parties that can see them. If a party needs to be able to exercise a choice on a contract, the signatory first needs to make them an observer."
+        -- otherwise will run into an error: "Attempt to fetch or exercise a contract not visible to the committer"
+        -- https://discuss.daml.com/t/error-attempt-to-fetch-or-exercise-a-contract-not-visible-to-the-committer/1304/1
+
+        -- pro
+        choice Propose : ProjectIdeaId
+            controller employee
+            do
+                create this
+
+        choice Revise : ProjectIdeaId
+            with
+                newProject : Text
+                newNote : Text 
+            controller employee
+            do
+                create this with
+                    project = newProject
+                    note = newNote
+
+        choice Reject : ProjectIdeaId
+            with
+                feedback : Text
+            controller manager
+            do
+                create this with 
+                    note = feedback 
+        
+        choice Accept : ProjectContractId
+            controller manager
+            do
+                create ProjectContract with
+                    employeeInContract = employee
+                    managerInContract = manager
+                    projectTitle = project 
+                    description = note 
+
+template ProjectContract
+    with 
+        employeeInContract : Party
+        managerInContract : Party
+        projectTitle : Text 
+        description : Text 
+    where
+        signatory employeeInContract, managerInContract
