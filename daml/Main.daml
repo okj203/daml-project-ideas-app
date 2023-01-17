@@ -1,7 +1,7 @@
 module Main where
 
 type ProjectIdeaId = ContractId ProjectIdea
-type ProjectContractId = ContractId ProjectContract
+type ProjectId = ContractId Project
 
 template ProjectIdea
     with
@@ -41,16 +41,16 @@ template ProjectIdea
                 create this with 
                     note = feedback 
         
-        choice Accept : ProjectContractId
+        choice Accept : ProjectId
             controller manager
             do
-                create ProjectContract with
+                create Project with
                     employeeInContract = employee
                     managerInContract = manager
                     projectTitle = project 
                     description = note 
 
-template ProjectContract
+template Project
     with 
         employeeInContract : Party
         managerInContract : Party

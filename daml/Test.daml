@@ -2,7 +2,7 @@ module Test where
 import Main
 import Daml.Script
 
-setup : Script ProjectContractId
+setup : Script ProjectId
 setup = script do 
     alice <- allocatePartyWithHint "Alice" (PartyIdHint "Alice")
     bob <- allocatePartyWithHint "Bob" (PartyIdHint "Bob")
