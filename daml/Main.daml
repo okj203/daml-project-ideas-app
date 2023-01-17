@@ -17,12 +17,13 @@ template ProjectIdea
         -- otherwise will run into an error: "Attempt to fetch or exercise a contract not visible to the committer"
         -- https://discuss.daml.com/t/error-attempt-to-fetch-or-exercise-a-contract-not-visible-to-the-committer/1304/1
 
-        -- pro
-        choice Propose : ProjectIdeaId
+        -- employee can propose a project idea 
+        choice Propose : ProjectIdeaId -- "ProjectIdeaId" replaces "ContractId ProjectIdea"
             controller employee
             do
                 create this
 
+        -- upon getting rejected, employee can revise the project idea
         choice Revise : ProjectIdeaId
             with
                 newProject : Text
@@ -33,7 +34,8 @@ template ProjectIdea
                     project = newProject
                     note = newNote
 
-        choice Reject : ProjectIdeaId
+        -- manager can reject the project idea
+        choice Reject : ProjectIdeaId 
             with
                 feedback : Text
             controller manager
@@ -41,6 +43,7 @@ template ProjectIdea
                 create this with 
                     note = feedback 
         
+        -- manager can accept the project idea, which will archive the project that the choice is being exercised and create a new contract
         choice Accept : ProjectId
             controller manager
             do
