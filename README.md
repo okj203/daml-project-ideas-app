@@ -10,7 +10,7 @@ This project was created by using the `empty-skeleton` template. The project ado
 3. Revise choice can be exercised on the newly generated contract from above.
 4. Accept choice is exercised to finalize the project idea and generate a new Project contract.
 
-[![Demo](./Demo.png)](https://share.vidyard.com/watch/xbDuZMbNUbgfHmPnqzt72N?)
+[![Demo](https://share.vidyard.com/watch/xbDuZMbNUbgfHmPnqzt72N?)](https://share.vidyard.com/watch/xbDuZMbNUbgfHmPnqzt72N?)
 
 ### III. Challenge(s)
 * `controller ... can` syntax causes warning in Daml 2.0+. The code itself does not cause any issues/errors in 2.5.0 but according to the warning, the syntax will be deprecated in the future versions of Daml. More information [here](https://docs.daml.com/daml/reference/choices.html#daml-ref-controller-can-deprecation).
