@@ -3,7 +3,7 @@ import Main
 import Daml.Script
 
 setup : Script ProjectId
-setup = script do 
+setup = do 
     alice <- allocatePartyWithHint "Alice" (PartyIdHint "Alice")
     bob <- allocatePartyWithHint "Bob" (PartyIdHint "Bob")
     charlie <- allocatePartyWithHint "Charlie" (PartyIdHint "Charlie")
@@ -27,3 +27,8 @@ setup = script do
 
     submit alice do
         exerciseCmd bobRevises Accept
+
+
+test : Script ()
+test = script do
+    return ()
